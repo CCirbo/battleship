@@ -12,7 +12,7 @@ class Cell
 
     def empty?
         @ship == nil
-    end
+    end 
 
     def place_ship(cruiser)
         @ship = cruiser
