@@ -18,6 +18,14 @@ RSpec.configure do |config|
     expect(@board.cells.length).to eq(16)
     expect(@board.cells["A1"]).to be_an_instance_of(Cell)
     expect(@board.cells["D4"]).to be_an_instance_of(Cell)
-
   end
+
+  it 'can validate coordiante' do
+    expect(@board.valid_coordinate?("A1")).to be true
+    expect(@board.valid_coordinate?("D4")).to be true
+    expect(@board.valid_coordinate?("A5")).to be false
+    expect(@board.valid_coordinate?("E1")).to be false
+    expect(@board.valid_coordinate?("A22")).to be false
+  end
+
 end
