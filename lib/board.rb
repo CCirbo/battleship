@@ -17,8 +17,8 @@ class Board
     hash 
    
   end
-  def valid_coordinate?(coordiante)
-    @cells.has_key?(coordiante)
+  def valid_coordinate?(coordinate)
+    @cells.has_key?(coordinate)
   end
  
 end
