@@ -66,6 +66,15 @@ RSpec.configure do |config|
     expect(@board.valid_placement?(@submarine, ["B1", "C1"])).to eq(true)
     end
   
+    it 'can place a ship on the board' do
+      @board.place_ship(@cruiser, ["A1", "A2", "A3"])
+      expect(@board.cells["A1"].ship).to eq(@cruiser)
+      expect(@board.cells["A2"].ship).to eq(@cruiser)
+      expect(@board.cells["A3"].ship).to eq(@cruiser)
+
+    end
+
+    
 
 
 end
