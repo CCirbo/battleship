@@ -23,76 +23,52 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-# @cells, ship and coordinate
-    # @cells is a hash 
-        # the keys are the coordinates such as "A1"
-        # the values are the instance of the cell
-        # class
-    # ship is an instance of the ship class
-        # attrs :  name, length, health,
-        # methods: hit and sunk?
-    # coordinate is an array that contains strings
-        # ["A1", "A3"]
-
-    # We want to make sure when we are placing our 
-        # ships on the board that there is actual
-        # valid space available.
-    # Making sure ship length equals the coordinate length.
-    
-    # if ship coordinates are next to each other
-        # than true, if not, it's false
-    ship.length == coordinates.length
+    #checks valid coordinates
+  
+    coordinates.each do |coordinate|
+        return false unless valid_coordinate?(coordinate)
+    end
+    # checks ship length vs coord length
+    return false unless ship.length == coordinates.length
+    # return false unless consecutive coordinates
+     coordinates_consecutive?(coordinates)
+    # the above returns false for diagonal too so no need to write separate method
   end
   
-  def are_coordinates_consecutive?(coordinates)
+  def coordinates_consecutive?(coords)
+    # rows is an array of letters
+    rows = coords.map {|coord| coord[0]}  
+    # columns is an array of numbers
+    columns = coords.map {|coord| coord[1]} 
+    # this is for the horizontal position
 
-    consecutive --> horizontally or vertically
-        - horizontally
-            - does the first letter match
-            - do the numbers increase by 1
-        - vertically
-                
 
-#How do find if the coord are next to each other?
-        # horizontally and vertically
-    # For horizontally consecutive numbers to one
-        # letter
-    # is the ship
+    vertical_row_check = rows.each_cons(2).all? do |row|
+        # checks that the succesion of index 0 is equal to the value of index 1
+        row[0].succ == row[1]
+      
+    end
+    vertical_column_check = columns.uniq.length == 1
 
-    # ship - attrs: name, length, health; methods: hit and sunk?
-    # coordinate - ["A1", "A2", "A4"]
+    horizontal_row_check = columns.each_cons(2).all? do |column|
+      # checks that the succesion of index 0 is equal to the value of index 1
+      column[0].succ == column[1]
+    
+    end
+    horizontal_column_check = rows.uniq.length == 1
 
-    # start with coordinate variable passed in
-    # horizontally consecutive
-        # make sure letter is the same
-            # an array of two-char strings, first char is the same letter
-                # need to iterate over the array and look at the first char
-                #which letter and make sure it matches
-                    # get the first char from the first element in array
-                        # assign it variable char_to_verify
-                   
-                    char_to_verify = coordinates[0][0]
-                    verified = nil
-                    # iterate over array
-                        # access first char in the string
-                            # assign it to var to string_char
-                        # check if string_char is the same as char_to_verify
-                    coordinates.each do |coordinate|
-                        # "a1"
-                        string_char = coordinate[0]
-                        if string_char == char_to_verify
-                         # keep going
-                            verified = true
-                        else
-                            # stop or end or fail the check
-                            verified = false
-                            break
-                        end
-                    end
-                    return verified
-  end 
-                
-                # make sure numbers increase by 1
-                    # array of 2-char strings, sec char is digit increasing by one
-           
+    if vertical_row_check && vertical_column_check
+      return true
+    elsif horizontal_row_check && horizontal_column_check
+      return true
+    else
+      return false
+    end
+    # check succession of rows is valid && columns are a single character(is this a 
+    # valid vert placement) 
+    # || the succession of columns is valid (1,2,3) && the rows are the same character, 
+    # this is checking valid horazontal placement
+
+  end
+          
 end
