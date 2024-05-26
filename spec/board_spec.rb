@@ -74,8 +74,11 @@ RSpec.configure do |config|
 
     end
 
-    
+    it 'can check if ships are overlapping' do
+      @board.place_ship(@cruiser, ["A1", "A2", "A3"])
+      @board.place_ship(@submarine, ["A1", "B1"])
+      expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to be false
+    end
 
-
-end
+  end
 

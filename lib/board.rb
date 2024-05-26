@@ -30,6 +30,7 @@ class Board
       # checks ship length vs coord length
       return false unless ship.length == coordinates.length
       # return false unless consecutive coordinates
+      return false if ships_overlap?(coordinates)
       coordinates_consecutive?(coordinates)
       # the above returns false for diagonal too so no need to write separate method
     end
@@ -55,6 +56,11 @@ class Board
       # binding.pry
         character_array.uniq.length == 1
       end
+
+      def ships_overlap?(coordinates)
+        coordinates.any? {|coordinate| @cells[coordinate].ship}
+      end
+
       public
     def place_ship(ship, coordinates)
       coordinates.each do |coordinate|
