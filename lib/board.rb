@@ -24,51 +24,36 @@ class Board
 
   def valid_placement?(ship, coordinates)
     #checks valid coordinates
-  
     coordinates.each do |coordinate|
-        return false unless valid_coordinate?(coordinate)
+      return false unless valid_coordinate?(coordinate)
     end
     # checks ship length vs coord length
     return false unless ship.length == coordinates.length
     # return false unless consecutive coordinates
-     coordinates_consecutive?(coordinates)
+    coordinates_consecutive?(coordinates)
     # the above returns false for diagonal too so no need to write separate method
   end
   
+  private
   def coordinates_consecutive?(coords)
     # rows is an array of letters
     rows = coords.map {|coord| coord[0]}  
     # columns is an array of numbers
     columns = coords.map {|coord| coord[1]} 
-    # this is for the horizontal position
-
-
-    vertical_row_check = rows.each_cons(2).all? do |row|
-        # checks that the succesion of index 0 is equal to the value of index 1
-        row[0].succ == row[1]
-      
-    end
-    vertical_column_check = columns.uniq.length == 1
-
-    horizontal_row_check = columns.each_cons(2).all? do |column|
-      # checks that the succesion of index 0 is equal to the value of index 1
-      column[0].succ == column[1]
-    
-    end
-    horizontal_column_check = rows.uniq.length == 1
-
-    if vertical_row_check && vertical_column_check
-      return true
-    elsif horizontal_row_check && horizontal_column_check
-      return true
-    else
-      return false
-    end
-    # check succession of rows is valid && columns are a single character(is this a 
-    # valid vert placement) 
-    # || the succession of columns is valid (1,2,3) && the rows are the same character, 
-    # this is checking valid horazontal placement
-
+  #  binding.pry
+    succession?(rows) && same_character?(columns) || succession?(columns) && same_character?(rows)
   end
-          
+
+  def succession?(character_array)
+    character_array.each_cons(2).all? do |character|
+      # binding.pry
+      character[0].succ == character[1]
+    end
+  end   
+
+  def same_character?(character_array)
+    # binding.pry
+    character_array.uniq.length == 1
+  end
 end
+
