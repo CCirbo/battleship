@@ -30,9 +30,9 @@ RSpec.configure do |config|
     end
 
     it 'can put a ship in place' do
-      @cell.place_ship(@cruiser)
-      expect(@cell.ship).to eq(@cruiser)
-      expect(@cell.empty?).to eq(false) 
+        @cell.place_ship(@cruiser)
+        expect(@cell.ship).to eq(@cruiser)
+        expect(@cell.empty?).to eq(false) 
 
     end
 
