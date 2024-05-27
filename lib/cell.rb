@@ -14,8 +14,8 @@ class Cell
         @ship == nil
     end 
 
-    def place_ship(cruiser)
-        @ship = cruiser
+    def place_ship(ship)
+        @ship = ship
     end 
 
     def fired_upon?
@@ -30,7 +30,7 @@ class Cell
     end
 
     def render(show_ship = false)
-        if show_ship && !empty?
+        if show_ship && !empty? && !@fired_upon
             "S"
         elsif @fired_upon == false
             "."  
@@ -42,7 +42,7 @@ class Cell
 
         elsif @fired_upon && !empty? 
             "H"               
-       
+    #    binding.pry
         end
     end
 

@@ -32,14 +32,11 @@ RSpec.configure do |config|
         expect(@cruiser.health).to eq(1)
         expect(@cruiser.sunk?).to be false
 
-
         @cruiser.hit
         expect(@cruiser.health).to eq(0)
         expect(@cruiser.sunk?).to be true
-    end
-
-   
-  end
+    end   
+end
   
 
 
