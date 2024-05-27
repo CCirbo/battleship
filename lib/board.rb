@@ -43,10 +43,10 @@ class Board
         # columns is an array of numbers
           columns = coords.map {|coord| coord[1]} 
       #  binding.pry
-          succession?(rows) && same_character?(columns) || succession?(columns) && same_character?(rows)
+        successive?(rows) && same_character?(columns) || successive?(columns) && same_character?(rows)
       end
 
-      def succession?(character_array)
+      def successive?(character_array)
           character_array.each_cons(2).all? do |character|
           # binding.pry
           character[0].succ == character[1]
