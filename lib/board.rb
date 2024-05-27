@@ -69,6 +69,30 @@ class Board
         cell.place_ship(ship)
         end
     end
+
+    def render(show_ship = false)
+      string_output = "  1 2 3 4 \n" 
+      ("A".."D").map do |letter|
+       string_output += letter + " "
+        (1..4).map do |number|
+          coord = letter + number.to_s
+          string_output += @cells[coord].render(show_ship)
+          string_output += " " unless number == 4
+        end
+        string_output += " \n"
+      end
+     string_output
+# start with output string with the heaeder row, these are the columns
+#  then nested loops to make each row of the board, so A..D for the first part
+# build a row string with the letter and a space. Then the second part is
+# iterating over the column numbers 1-4, and makes the coords by combining the row
+# letter and the column number and into a string. Then gets the string representation
+# of the cell at the coord by calling the @cells[coord]. the render method from cell class returns
+# a character representing the cells state and we add a space between the cell unless
+# it is at the number 4. Then we have to add a new line and then show the string output should
+# be the board grid.
+
+  end
 end
 
 
