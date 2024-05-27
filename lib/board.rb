@@ -16,7 +16,6 @@ class Board
           end
       end
       hash 
-   
     end
 
     def valid_coordinate?(coordinate)
@@ -37,30 +36,30 @@ class Board
     end
   
       private
-      def coordinates_consecutive?(coords)
-        # rows is an array of letters
-          rows = coords.map {|coord| coord[0]}  
-        # columns is an array of numbers
-          columns = coords.map {|coord| coord[1]} 
-      #  binding.pry
-        successive?(rows) && same_character?(columns) || successive?(columns) && same_character?(rows)
-      end
+    def coordinates_consecutive?(coords)
+      # rows is an array of letters
+        rows = coords.map {|coord| coord[0]}  
+      # columns is an array of numbers
+        columns = coords.map {|coord| coord[1]} 
+    #  binding.pry
+      successive?(rows) && same_character?(columns) || successive?(columns) && same_character?(rows)
+    end
 
-      def successive?(character_array)
-          character_array.each_cons(2).all? do |character|
-          # binding.pry
-          character[0].succ == character[1]
-        end
-      end   
-
-      def same_character?(character_array)
-      # binding.pry
-          character_array.uniq.length == 1
+    def successive?(character_array)
+        character_array.each_cons(2).all? do |character|
+        # binding.pry
+        character[0].next == character[1]
       end
+    end   
 
-      def ships_overlap?(coordinates)
-          coordinates.any? {|coordinate| @cells[coordinate].ship}
-      end
+    def same_character?(character_array)
+    # binding.pry
+        character_array.uniq.length == 1
+    end
+
+    def ships_overlap?(coordinates)
+        coordinates.any? {|coordinate| @cells[coordinate].ship}
+    end
 
       public
     def place_ship(ship, coordinates)
@@ -82,17 +81,7 @@ class Board
         string_output += " \n"
       end
      string_output
-# start with output string with the heaeder row, these are the columns
-#  then nested loops to make each row of the board, so A..D for the first part
-# build a row string with the letter and a space. Then the second part is
-# iterating over the column numbers 1-4, and makes the coords by combining the row
-# letter and the column number and into a string. Then gets the string representation
-# of the cell at the coord by calling the @cells[coord]. the render method from cell class returns
-# a character representing the cells state and we add a space between the cell unless
-# it is at the number 4. Then we have to add a new line and then show the string output should
-# be the board grid.
-
-  end
+    end
 end
 
 
