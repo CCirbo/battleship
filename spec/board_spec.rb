@@ -105,32 +105,31 @@ describe '#render' do
                                     "B . . . M \n" +
                                     "C . . . . \n" +
                                     "D . . . . \n")
-      end 
+    end 
 
     it 'can show sunk ships' do
-      @board.place_ship(@submarine, ["C1", "D1"])
-      @board.cells["C1"].fire_upon
-      @board.cells["D1"].fire_upon
-      expect(@board.render).to eq("  1 2 3 4 \n" +
-                                  "A . . . . \n" +
-                                  "B . . . . \n" +
-                                  "C X . . . \n" +
-                                  "D X . . . \n")
+        @board.place_ship(@submarine, ["C1", "D1"])
+        @board.cells["C1"].fire_upon
+        @board.cells["D1"].fire_upon
+        expect(@board.render).to eq("  1 2 3 4 \n" +
+                                    "A . . . . \n" +
+                                    "B . . . . \n" +
+                                    "C X . . . \n" +
+                                    "D X . . . \n")
     end
 
     it 'can show ships place, hits and misses and sunk ships altogether' do
-
-      @board.place_ship(@cruiser, ["A1", "A2", "A3"])
-      @board.cells["A1"].fire_upon
-      @board.cells["B4"].fire_upon
-      @board.place_ship(@submarine, ["C1", "D1"])
-      @board.cells["C1"].fire_upon
-      @board.cells["D1"].fire_upon
-      expect(@board.render(true)).to eq("  1 2 3 4 \n" +
-                                        "A H S S . \n" +
-                                        "B . . . M \n" +
-                                        "C X . . . \n" +
-                                        "D X . . . \n")  
+        @board.place_ship(@cruiser, ["A1", "A2", "A3"])
+        @board.cells["A1"].fire_upon
+        @board.cells["B4"].fire_upon
+        @board.place_ship(@submarine, ["C1", "D1"])
+        @board.cells["C1"].fire_upon
+        @board.cells["D1"].fire_upon
+        expect(@board.render(true)).to eq("  1 2 3 4 \n" +
+                                          "A H S S . \n" +
+                                          "B . . . M \n" +
+                                          "C X . . . \n" +
+                                          "D X . . . \n")  
     end
             
   end

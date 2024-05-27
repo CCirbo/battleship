@@ -45,6 +45,5 @@ class Cell
     #    binding.pry
         end
     end
-
 end
 
