@@ -15,20 +15,20 @@ class Game
     end
 
     def start
-        loop do
+       
             display_main_menu
-            choice = gets
-            break unless choice
-            choice = choice.chomp.downcase
+            # choice = gets
+            
+            choice = gets.chomp.downcase
             case choice
             when 'p'
                 play_game
             when 'q'
                 puts "Exiting game. Goodbye!"
-            break
-        else
-            puts "Please enter 'p' to play or 'q' to quit."
-        end 
+                
+            else
+                puts "Invalid please enter 'p' to play or 'q' to quit."
+       
     end
 end
 
