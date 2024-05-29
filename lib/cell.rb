@@ -42,7 +42,7 @@ class Cell
 
         elsif @fired_upon && !empty? 
             "H"               
-    #    binding.pry
+    
         end
     end
 
