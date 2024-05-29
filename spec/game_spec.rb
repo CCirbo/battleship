@@ -16,7 +16,7 @@ RSpec.describe Game do
             
             allow(game).to receive(:gets).and_return('q')
             expect { game.start }.to output(/Welcome to BATTLESHIP\nEnter 'p' to play or 'q' to quit.\nExiting game. Goodbye!/).to_stdout
-        end
+        end                                     
     end
 end
 
