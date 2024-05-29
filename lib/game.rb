@@ -16,7 +16,7 @@ class Game
     end
 
     def display_main_menu
-        puts "Welcome to BATTLESHIP"
+        puts "Welcome to BATTLESHIP\n"
         puts "Enter 'p' to play or 'q' to quit."
     end
 
@@ -25,7 +25,7 @@ class Game
             choice = gets.chomp.downcase
             case choice
             when 'p'
-                play_game
+                run_game
             when 'q'
                 puts "Exiting game. Goodbye!"
                exit 
@@ -36,15 +36,17 @@ class Game
            
     end
    
-    def play_game
+    def run_game
         computer_ship_placement(@computer_cruiser)
         computer_ship_placement(@computer_submarine)
         player_ship_placement_prompt
         player_ship_placement(@player_cruiser, 0)
         player_ship_placement(@player_submarine, 1)
-        turn_start
-        player_turn_shot
-        computer_turn_shot
+        # turn_start
+        # player_turn_shot
+        # computer_turn_shot
+        play_game
+        #end_game
     end
    
     def computer_ship_placement(ship)
@@ -82,20 +84,22 @@ class Game
     end
     
     def player_turn_shot
+        #binding.pry
         #prompt the player for a coordinate to fire upon
         puts "Enter the coordinate for your shot:"
         #receives user input of the coordinate, removes the return keystroke, and capitalizes
         user_input = gets.chomp.upcase
         #validates if the user input is a valid coordinate on the computer board AND if the user input is a computer cell that has not been fired upon.
-        until @computer_board.valid_coordinate?(user_input) && !@computer_board.cells(user_input).fired_upon?
+        until @computer_board.valid_coordinate?(user_input) && !@computer_board.cells[user_input].fired_upon?
             #if either condition is false, asks for a valid coordinate
             puts "Please enter a valid coordinate:"
             user_input = gets.chomp.upcase
         end
         #if both conditions are true it registers a user input shot on the computer board
-        @computer_board.fire_shot(user_input)
+        @computer_board.cells[user_input].fire_upon
         #returns a rendered board showing the players shot
         puts @computer_board.render(true)
+        puts "Your shot on #{user_input} was a #{@computer_board.cells[user_input].render}"
     end
 
     def computer_turn_shot
@@ -111,12 +115,33 @@ class Game
         @player_board.cells[random_coords].fire_upon
        #returs
         puts @player_board.render(true)
+        puts "My shot on #{random_coords} was a #{@player_board.cells[random_coords].render}"
+    end
+
+
+    def play_game
+        until [@computer_cruiser, @computer_submarine].all?(&:sunk?) || [@player_cruiser, @player_submarine].all?(&:sunk?)
+            turn_start
+            player_turn_shot
+        break if [@computer_cruiser, @computer_submarine].all?(&:sunk?)
+            computer_turn_shot
+         
+        end
+        end_game
+    end
+
+    
+        def end_game
+            if [@player_cruiser, @player_submarine].all?(&:sunk?)
+            puts "I Won!"
+            else
+            puts "You Won!"
+        end
+         start
     end
 end
 
-        #player took a valid shot
-        #computer valid shot
-        #render board showing results of player and computers shots 
+      
     
 
   
