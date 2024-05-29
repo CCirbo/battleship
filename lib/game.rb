@@ -84,7 +84,7 @@ class Game
             user_input = gets.chomp.upcase
         end
             @computer_board.cells[user_input].fire_upon
-        puts @computer_board.render(true)
+        puts @computer_board.render
         puts "Your shot on #{user_input} was a #{@computer_board.cells[user_input].render} \n "
     end
 
