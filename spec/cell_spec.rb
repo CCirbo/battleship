@@ -33,7 +33,6 @@ RSpec.configure do |config|
         @cell.place_ship(@cruiser)
         expect(@cell.ship).to eq(@cruiser)
         expect(@cell.empty?).to eq(false) 
-
     end
 
     it 'knows when ship has been fired upon' do

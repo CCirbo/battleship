@@ -1,5 +1,4 @@
 class Cell
-
     attr_reader :coordinate,
                 :ship,
                 :fired_upon
@@ -42,7 +41,6 @@ class Cell
 
         elsif @fired_upon && !empty? 
             "H"               
-    
         end
     end
 

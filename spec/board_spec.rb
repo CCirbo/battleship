@@ -77,7 +77,7 @@ RSpec.configure do |config|
         expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to be false
     end
 
-describe '#render' do  
+  describe '#render' do  
     it 'can render the board as a string representation of itself' do
         @board.place_ship(@cruiser, ["A1", "A2", "A3"])
         expect(@board.render).to eq( "  1 2 3 4 \n" +
@@ -119,7 +119,6 @@ describe '#render' do
     end
 
     it 'can show ships place, hits and misses and sunk ships altogether' do
-
       @board.place_ship(@cruiser, ["A1", "A2", "A3"])
       @board.cells["A1"].fire_upon
       @board.cells["B4"].fire_upon
@@ -132,8 +131,6 @@ describe '#render' do
                                         "C X . . . \n" +
                                         "D X . . . \n")  
     end
-            
   end
- 
 end
 

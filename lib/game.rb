@@ -4,7 +4,6 @@ require './lib/cell'
 require './lib/board'
 
 class Game
-
     def initialize
         @computer_cruiser = Ship.new("Cruiser", 3)
         @computer_submarine = Ship.new("Submarine", 2)
@@ -17,23 +16,22 @@ class Game
 
     def display_main_menu
         puts "Welcome to BATTLESHIP \n "
-
         puts "Enter 'p' to play or 'q' to quit."
     end
 
     def start
        display_main_menu
-            choice = gets.chomp.downcase
-            case choice
-            when 'p'
-                run_game
-            when 'q'
-                puts "Exiting game. Goodbye!"
-               exit 
-            else
-                puts "Invalid please enter 'p' to play or 'q' to quit."
-                self.start
-            end
+        choice = gets.chomp.downcase
+        case choice
+        when 'p'
+            run_game
+        when 'q'
+            puts "Exiting game. Goodbye!"
+            exit 
+        else
+            puts "Invalid please enter 'p' to play or 'q' to quit."
+            self.start
+        end
     end
    
     def run_game
@@ -82,7 +80,7 @@ class Game
         puts " \n Enter the coordinate for your shot: \n "
             user_input = gets.chomp.upcase
         until @computer_board.valid_coordinate?(user_input) && !@computer_board.cells[user_input].fired_upon?
-        puts "You have already fired here.  Enter a new coordinate:"
+            puts "You have already fired here.  Enter a new coordinate:"
             user_input = gets.chomp.upcase
         end
             @computer_board.cells[user_input].fire_upon
@@ -106,7 +104,6 @@ class Game
             player_turn_shot
         break if [@computer_cruiser, @computer_submarine].all?(&:sunk?)
             computer_turn_shot
-         
         end
         end_game
     end
@@ -117,7 +114,7 @@ class Game
         else
             puts "You Won! Let's play again! \n "
         end
-         start
+        start
     end
 end
 
