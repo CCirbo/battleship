@@ -2,7 +2,7 @@ require './lib/cell'
 
 class Board
       attr_reader :cells
-      
+
     def initialize
         @cells = populate_board_with_cells
     end 
@@ -34,6 +34,27 @@ class Board
         coordinates_consecutive?(coordinates)
         # the above returns false for diagonal too so no need to write separate method
     end
+
+    def place_ship(ship, coordinates)
+      coordinates.each do |coordinate|
+      cell = @cells[coordinate]
+      cell.place_ship(ship)
+      end
+  end
+
+  def render(show_ship = false)
+    string_output = "  1 2 3 4 \n" 
+    ("A".."D").map do |letter|
+     string_output += letter + " "
+      (1..4).map do |number|
+        coord = letter + number.to_s
+        string_output += @cells[coord].render(show_ship)
+        string_output += " " unless number == 4
+      end
+      string_output += " \n"
+    end
+   string_output
+  end
   
       private
     def coordinates_consecutive?(coords)
@@ -61,27 +82,8 @@ class Board
         coordinates.any? {|coordinate| @cells[coordinate].ship}
     end
 
-      public
-    def place_ship(ship, coordinates)
-        coordinates.each do |coordinate|
-        cell = @cells[coordinate]
-        cell.place_ship(ship)
-        end
-    end
-
-    def render(show_ship = false)
-      string_output = "  1 2 3 4 \n" 
-      ("A".."D").map do |letter|
-       string_output += letter + " "
-        (1..4).map do |number|
-          coord = letter + number.to_s
-          string_output += @cells[coord].render(show_ship)
-          string_output += " " unless number == 4
-        end
-        string_output += " \n"
-      end
-     string_output
-    end
+    
+    
 end
 
 
