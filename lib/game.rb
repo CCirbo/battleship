@@ -82,20 +82,35 @@ class Game
     end
     
     def player_turn_shot
+        #prompt the player for a coordinate to fire upon
         puts "Enter the coordinate for your shot:"
+        #receives user input of the coordinate, removes the return keystroke, and capitalizes
         user_input = gets.chomp.upcase
-        until @player_board.valid_coordinate?(user_input)
+        #validates if the user input is a valid coordinate on the computer board AND if the user input is a computer cell that has not been fired upon.
+        until @computer_board.valid_coordinate?(user_input) && !@computer_board.cells(user_input).fired_upon?
+            #if either condition is false, asks for a valid coordinate
             puts "Please enter a valid coordinate:"
             user_input = gets.chomp.upcase
         end
+        #if both conditions are true it registers a user input shot on the computer board
+        @computer_board.fire_shot(user_input)
+        #returns a rendered board showing the players shot
+        puts @computer_board.render(true)
     end
 
     def computer_turn_shot
-        random_coords = @computer_board.cells.keys.sample
-        until @computer_board.valid_coordinate?(random_coords)
-            puts "does this work" 
+       # computer selects a random coordinate using sample of the cell instance hash keys
+        random_coords = @player_board.cells.keys.sample
+        # until loop, are the random coords valid on the player board
+        # AND the player board coordinate is not showing fired upon
+        until @player_board.valid_coordinate?(random_coords) && !@player_board.cells[random_coords].fired_upon?
+            random_coords = @player_board.cells.keys.sample
         end
-binding.pry
+        #will continue until loop until both conditions are met then 
+        #registers that the player board has been hit
+        @player_board.cells[random_coords].fire_upon
+       #returs
+        puts @player_board.render(true)
     end
 end
 
